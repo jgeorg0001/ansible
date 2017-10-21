@@ -1,0 +1,2 @@
+---
+#host_ent0: "{{ ansible_hostname}}" "{{ ansible_nodename }}" "{{ansible_default_ipv4.address}}"

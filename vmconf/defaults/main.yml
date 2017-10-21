@@ -1,0 +1,10 @@
+---
+ date: "{{ lookup('pipe', 'date +%Y%m%d') }}"
+ date1: " {{ ansible_date_time.date }} "
+
+ #host_ent0: "system {{ ansible_default_ipv4.address }} {{ ansible_nodename }} {{ ansible_hostname }} #"
+
+# host_ent0: "  {{ ansible_hostname}}  {{ ansible_nodename }} {{ansible_default_ipv4.address}}"
+
+
+#entry: "{{ hostvars.ansible_host }} {{ hostvars.inventory_hostname }} {{ hostvars.inventory_hostname_short }}"

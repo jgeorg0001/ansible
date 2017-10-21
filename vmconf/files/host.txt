@@ -1,0 +1,20 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+
+###################Cluster-Nodes#############################
+192.168.1.141   clientpc7l001.domain.local      clientpc7l001
+192.168.1.142   clientpc7l002.domain.local      clientpc7l002
+192.168.1.143 	clientpc7l003.domain.local	    clientpc7l003
+
+#####VM CONF NODES##############
+
+
+
+############# Ansible Server#####################
+192.168.1.2     Vostro-2520   ansible-master
+
+#############Puppet master##########################
+192.168.1.111	puppetmaster.domain.local puppetmaster
+
+
+##############LDAP#################################
+192.168.1.112 ldap.domain.local  ldap

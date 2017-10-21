@@ -1,0 +1,73 @@
+---
+# backup /etc/ directory
+- name: create backupdir
+  file: path=/backup state=directory mode=0755
+  tags: ['backup']
+
+- name: backup-etc
+  archive: path=/etc dest=/backup/etc-{{ date }}.tgz format=bz2
+  tags: ['backup']
+
+- debug: msg={{ date }}
+
+- name: install basic packages for ubuntu
+  apt: name={{item}} state=installed
+  with_items:
+    - python-apt
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Ubuntu'
+  tags: ['basepack']
+
+- name: install basic packages
+  package: name={{item}} state=installed
+  with_items:
+    - libselinux-python
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  tags: ['basepack']
+
+- name: /etc/host file entry
+  copy: src=host.txt dest=/etc/hosts mode=644
+  tags: ['hostentry']
+
+- name: Add own entry on hosts
+  lineinfile: backup=yes path=/etc/hosts state=present insertafter=EOF line="{{ ansible_default_ipv4.address }} {{ ansible_nodename }} {{ ansible_hostname }}"
+  tags: ['hostentry']
+
+- debug: msg="{{ ansible_default_ipv4.address }} {{ ansible_nodename }} {{ ansible_hostname }}"
+  tags: ['hostentry']
+
+# copy host entries to server source file
+##########################################
+
+# firewall settings
+- name: disable firewall if enabled
+  service: name=firewalld state=stopped enabled=no
+  when: ansible_distribution == 'Ubuntu' or (ansible_distribution == 'CentOS' and ansible_distribution_major_version == "7")
+  tags: ['firewall']
+
+- name: disable ubuntu firewall
+  ufw: state=disabled
+  when: ansible_distribution == 'Ubuntu'
+  tags: ['firewall']
+
+- name: disable firewall on centos6
+  service: name={{item}} state=stopped enabled=no
+  with_items:
+    - iptables
+    - ip6tables
+  when: (ansible_distribution == 'CentOS' and ansible_distribution_major_version == "6") or (ansible_distribution == 'Red Hat Enterprise Linux' and ansible_distribution_major_version == "6" )
+  tags: ['firewall']
+
+- name: check the sestatus file
+  stat: path=/usr/bin/sestatus
+  register: ses
+  tags: ['firewall']
+
+- name: disable selinux
+  selinux: state=disabled
+  when: ses.stat.isfile is defined
+  tags: ['firewall']
+
+
+  ##############################################
+
+  

@@ -1,0 +1,9 @@
+---
+  - hosts: nodes1
+    become: yes
+#    vars:
+#      host_ip: ansible_default_ipv4.address
+#      host_fqdn: ansible_hostname
+#      host_alias: ansible_nodename
+    roles:
+      - vmconf

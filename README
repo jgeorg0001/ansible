@@ -1,0 +1,57 @@
+Configure a server after build
+1. backup of /etc  >> Done
+2. Status play book  
+1. /etc/host
+2. 2nd n/w interface config
+3. ntp
+4. nfs client
+5. ldap
+6. dns
+7. http install
+8. telnet
+9. vsftp
+10. backup /etc/
+11. user addition/grop
+12. directory creation
+13. create filesystem pv/vg/lv/
+14. Mount the fs
+15. Add multiple repos
+16. Nfs mount
+17. Configure a kick start server
+18. create multiple pvs and mount it
+19. configure nagios client
+
+############################################
+1. Create user ansible on all servers
+2. add sudo access for ansible
+3. ssh keygen and copy it to client
+1. Update the ssh conf fie
+echo	"#	ignoreme"	>>	/etc/ssh/sshd_configsvn svn statusstatus
+2. copy the rsa key to host
+3. restart the ssh
+##############################################
+5. apt-update
+6. Update /etc/issue
+7. Create a hpme directory for puppet manifest and a README
+8. /etc/resolve need to update
+9. swappines and reload systemctl
+10. Add seconday IP
+11. install pi
+12. remot sudo conf  auto.su/master/etc/hosts
+13. nfs client and mount
+
+##################################################
+
+
+a) configure webserver
+b) copy the necessory file
+c) restart the service
+d) check the port is listening
+
+
+Create an NFS server
+a) configure a nfs server
+b) create nfs mount
+c) export it
+d) check the availablilty on client
+e) mount it in client
